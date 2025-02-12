@@ -1,10 +1,10 @@
-import { ajax } from "discourse/lib/ajax";
 import { alias } from "@ember/object/computed";
-import { apiInitializer } from "discourse/lib/api";
+import { service } from "@ember/service";
+import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
-import { inject as service } from "@ember/service";
-import discourseComputed from "discourse-common/utils/decorators";
-import I18n from "I18n";
+import { apiInitializer } from "discourse/lib/api";
+import discourseComputed from "discourse/lib/decorators";
+import { i18n } from "discourse-i18n";
 
 const votingCategories = settings.voting_categories.split("|");
 
@@ -15,14 +15,15 @@ export default apiInitializer("1.1", (api) => {
     votesLeft: alias("currentUser.votes_left"),
     userVoted: alias("topic.user_voted"),
 
-    @discourseComputed("topic", "lastVisitedTopic")
-    unboundClassNames(topic, lastVisitedTopic) {
+    @discourseComputed("topic")
+    unboundClassNames(topic) {
       let classList = this._super(...arguments);
       if (!topic.can_vote) {
         classList += " non-voting";
       }
       return classList;
     },
+
     @discourseComputed("excerptsRouter.currentRoute.attributes.category.id")
     expandPinned(currentCategoryId) {
       return currentCategoryId &&
@@ -42,7 +43,7 @@ export default apiInitializer("1.1", (api) => {
         topic.unread !== undefined
       ) {
         let voteCountElem = target.nextElementSibling;
-        let voteCount = parseInt(voteCountElem.innerHTML);
+        let voteCount = parseInt(voteCountElem.innerHTML, 10);
         let voteType;
 
         if (target.classList.contains("can-vote")) {
@@ -64,12 +65,12 @@ export default apiInitializer("1.1", (api) => {
                   !tli.classList.contains("unseen-topic")
                 ) {
                   voteButton.classList.add("disabled");
-                  voteButton.title = I18n.t(themePrefix("out_of_votes"));
+                  voteButton.title = i18n(themePrefix("out_of_votes"));
                 }
               });
           }
           // Ensure clicked button has proper title and class
-          target.title = I18n.t(themePrefix("user_vote"));
+          target.title = i18n(themePrefix("user_vote"));
           target.classList.remove("disabled");
         } else {
           voteCountElem.innerHTML = voteCount - 1;
@@ -90,12 +91,12 @@ export default apiInitializer("1.1", (api) => {
                   !tli.classList.contains("unseen-topic")
                 ) {
                   voteButton.classList.remove("disabled");
-                  voteButton.title = I18n.t(themePrefix("user_no_vote"));
+                  voteButton.title = i18n(themePrefix("user_no_vote"));
                 }
               });
           }
 
-          target.title = I18n.t(themePrefix("user_no_vote"));
+          target.title = i18n(themePrefix("user_no_vote"));
         }
 
         target.classList.toggle("can-vote");

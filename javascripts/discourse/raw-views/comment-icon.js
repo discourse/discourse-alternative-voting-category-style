@@ -1,11 +1,11 @@
-import { inject as service } from "@ember/service";
-import discourseComputed from "discourse-common/utils/decorators";
 import EmberObject from "@ember/object";
+import { service } from "@ember/service";
+import discourseComputed from "discourse/lib/decorators";
 
 const votingCategories = settings.voting_categories.split("|");
 
 export default EmberObject.extend({
-  router: service("router"),
+  router: service(),
   @discourseComputed("router.currentRoute", "site.desktopView")
   showCommentIcon(currentRoute, isDesktop) {
     if (isDesktop && currentRoute.params?.category_slug_path_with_id) {

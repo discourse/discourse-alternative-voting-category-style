@@ -1,12 +1,12 @@
-import { inject as service } from "@ember/service";
-import discourseComputed from "discourse-common/utils/decorators";
 import EmberObject from "@ember/object";
-import I18n from "I18n";
+import { service } from "@ember/service";
+import discourseComputed from "discourse/lib/decorators";
+import { i18n } from "discourse-i18n";
 
 const votingCategories = settings.voting_categories.split("|");
 
 export default EmberObject.extend({
-  router: service("router"),
+  router: service(),
   @discourseComputed("router.currentRoute", "site.desktopView")
   showVoteCount(currentRoute, isDesktop) {
     if (
@@ -56,17 +56,17 @@ export default EmberObject.extend({
   votedStatus() {
     if (settings.vote_from_topic_list) {
       if (this.topic.unread === undefined) {
-        return I18n.t(themePrefix("must_view_first"));
+        return i18n(themePrefix("must_view_first"));
       }
       if (this.topic.closed) {
-        return I18n.t(themePrefix("closed"));
+        return i18n(themePrefix("closed"));
       }
       if (this.currentUser?.votes_left <= 0 && !this.topic.user_voted) {
-        return I18n.t(themePrefix("out_of_votes"));
+        return i18n(themePrefix("out_of_votes"));
       }
       return this.topic.user_voted
-        ? I18n.t(themePrefix("user_vote"))
-        : I18n.t(themePrefix("user_no_vote"));
+        ? i18n(themePrefix("user_vote"))
+        : i18n(themePrefix("user_no_vote"));
     }
     return;
   },
