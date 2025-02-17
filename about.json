@@ -1,11 +1,10 @@
 {
   "name": "Alternative Voting Category Style",
   "component": true,
-  "license_url": "https://github.com/tshenry/discourse-alternative-voting-category-style/blob/main/LICENSE",
+  "license_url": "https://github.com/discourse/discourse-alternative-voting-category-style/blob/main/LICENSE",
   "about_url": "https://meta.discourse.org/t/alternative-voting-category-style/101532",
   "authors": "tshenry",
   "modifiers": {
     "serialize_topic_excerpts": true
-  },
-  "learn_more": "https://meta.discourse.org/t/beginners-guide-to-using-discourse-themes/91966"
+  }
 }

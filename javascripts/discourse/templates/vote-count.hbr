@@ -1,3 +1,4 @@
+{{!-- has-modern-replacement --}}
 {{#if view.showVoteCount}}
   <div class='vote-count-before-title'>
     <button class="topic-list-vote-button btn-flat {{view.userVotedClass}} {{view.votingDisabled}}" title="{{view.votedStatus}}">{{d-icon 'caret-up'}}</button>

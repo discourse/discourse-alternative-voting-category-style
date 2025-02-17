@@ -2,20 +2,20 @@ voting_categories:
   type: list
   list_type: category
   default: ""
-  description: 
-    en: 'The above categories will have the styling applied'
+  description:
+    en: "The above categories will have the styling applied"
 use_compact_width:
   type: bool
   default: true
-  description: 
-    en: 'Use a more compact view of the topic list for voting categories.'
+  description:
+    en: "Use a more compact view of the topic list for voting categories."
 include_excerpts:
   type: bool
   default: false
   description:
-    en: 'Include an excerpt of the original post of the topic in voting categories'
+    en: "Include an excerpt of the original post of the topic in voting categories"
 vote_from_topic_list:
   type: bool
   default: false
   description:
-    en: '(EXPERIMENTAL) Allow users to vote from the topic list of a voting category. Excerpts are automatically enabled'
+    en: "(EXPERIMENTAL) Allow users to vote from the topic list of a voting category. Excerpts are automatically enabled"
