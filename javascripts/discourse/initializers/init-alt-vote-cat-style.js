@@ -7,7 +7,7 @@ import discourseComputed from "discourse/lib/decorators";
 import { withSilencedDeprecations } from "discourse/lib/deprecated";
 import { i18n } from "discourse-i18n";
 
-const votingCategories = settings.voting_categories.split("|");
+const votingCategories = settings.voting_categories.split("|").map(Number);
 
 export default apiInitializer("1.1", (api) => {
   const discovery = api.container.lookup("service:discovery");
@@ -15,8 +15,7 @@ export default apiInitializer("1.1", (api) => {
   function isVotingCategory() {
     const currentCategoryId = discovery.category?.id;
     return (
-      currentCategoryId &&
-      votingCategories.some((c) => c === currentCategoryId.toString())
+      currentCategoryId && votingCategories.some((c) => c === currentCategoryId)
     );
   }
 
@@ -66,7 +65,7 @@ export default apiInitializer("1.1", (api) => {
       expandPinned(currentCategoryId) {
         return currentCategoryId &&
           (settings.include_excerpts || settings.vote_from_topic_list) &&
-          votingCategories.some((c) => c === currentCategoryId.toString())
+          votingCategories.some((c) => c === Number(currentCategoryId))
           ? true
           : this._super();
       },

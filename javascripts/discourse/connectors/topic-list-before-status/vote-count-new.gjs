@@ -19,7 +19,7 @@ export default class VoteCount extends Component {
   }
 
   get showVoteCount() {
-    const votingCategories = settings.voting_categories.split("|");
+    const votingCategories = settings.voting_categories.split("|").map(Number);
     const id = this.discovery.category?.id;
 
     return (

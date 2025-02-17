@@ -2,8 +2,6 @@ import Component from "@glimmer/component";
 import { service } from "@ember/service";
 import icon from "discourse/helpers/d-icon";
 
-const votingCategories = settings.voting_categories.split("|");
-
 export default class CommentIcon extends Component {
   @service discovery;
   @service site;
@@ -12,6 +10,9 @@ export default class CommentIcon extends Component {
     const id = this.discovery.category?.id;
 
     if (this.site.desktopView && id) {
+      const votingCategories = settings.voting_categories
+        .split("|")
+        .map(Number);
       return votingCategories.some((category) => category === id);
     }
   }
