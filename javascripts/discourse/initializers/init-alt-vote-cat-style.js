@@ -26,7 +26,6 @@ export default apiInitializer("1.1", (api) => {
       columns.delete("views");
       columns.delete("posters");
     }
-    return columns;
   });
 
   api.registerValueTransformer(
