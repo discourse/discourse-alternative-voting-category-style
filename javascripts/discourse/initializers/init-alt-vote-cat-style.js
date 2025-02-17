@@ -10,10 +10,10 @@ import { i18n } from "discourse-i18n";
 const votingCategories = settings.voting_categories.split("|");
 
 export default apiInitializer("1.1", (api) => {
-  const router = api.container.lookup("service:router");
+  const discovery = api.container.lookup("service:discovery");
 
   function isVotingCategory() {
-    const currentCategoryId = router.currentRoute.attributes.category.id;
+    const currentCategoryId = discovery.category?.id;
     return (
       currentCategoryId &&
       votingCategories.some((c) => c === currentCategoryId.toString())
