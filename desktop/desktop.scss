@@ -4,7 +4,7 @@
   display: none;
 }
 
-.voting-category.list-container {
+body.voting-category .list-container {
   margin: 0 auto;
 
   @if $use_compact_width == "true" {

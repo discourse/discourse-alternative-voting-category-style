@@ -14,23 +14,16 @@ export default EmberObject.extend({
       this.topic.can_vote &&
       currentRoute.params?.category_slug_path_with_id
     ) {
-      document
-        .querySelector(".list-container")
-        .classList.add("voting-category");
       const splitCatPath =
         currentRoute.params.category_slug_path_with_id.split("/");
       const isVotingCategory = votingCategories.some(
         (category) => category === splitCatPath[splitCatPath.length - 1]
       );
       if (isVotingCategory) {
-        document
-          .querySelector(".list-container")
-          .classList.add("voting-category");
+        document.body.classList.add("voting-category");
         return true;
       }
-      document
-        .querySelector(".list-container")
-        .classList.remove("voting-category");
+      document.body.classList.remove("voting-category");
       return false;
     }
   },

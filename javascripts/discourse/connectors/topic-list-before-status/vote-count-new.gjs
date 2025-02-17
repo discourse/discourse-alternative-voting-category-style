@@ -2,13 +2,12 @@ import Component from "@glimmer/component";
 import { on } from "@ember/modifier";
 import { action } from "@ember/object";
 import { service } from "@ember/service";
+import bodyClass from "discourse/helpers/body-class";
 import concatClass from "discourse/helpers/concat-class";
 import icon from "discourse/helpers/d-icon";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 import { i18n } from "discourse-i18n";
-
-const votingCategories = settings.voting_categories.split("|");
 
 export default class VoteCount extends Component {
   @service currentUser;
@@ -20,23 +19,15 @@ export default class VoteCount extends Component {
   }
 
   get showVoteCount() {
+    const votingCategories = settings.voting_categories.split("|");
     const id = this.discovery.category?.id;
 
-    if (this.site.desktopView && this.topic.get("can_vote") && id) {
-      document
-        .querySelector(".list-container")
-        .classList.add("voting-category");
-
-      const isVotingCategory = votingCategories.some(
-        (category) => category === id
-      );
-
-      document
-        .querySelector(".list-container")
-        .classList.toggle("voting-category", isVotingCategory);
-
-      return isVotingCategory;
-    }
+    return (
+      this.site.desktopView &&
+      this.topic.get("can_vote") &&
+      id &&
+      votingCategories.some((category) => category === id)
+    );
   }
 
   get votingDisabled() {
@@ -113,6 +104,8 @@ export default class VoteCount extends Component {
 
   <template>
     {{#if this.showVoteCount}}
+      {{bodyClass "voting-category"}}
+
       <div class="vote-count-before-title">
         <button
           {{on "click" this.vote}}
