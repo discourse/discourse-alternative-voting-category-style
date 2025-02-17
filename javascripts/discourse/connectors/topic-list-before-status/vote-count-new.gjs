@@ -117,6 +117,7 @@ export default class VoteCount extends Component {
       <div class="vote-count-before-title">
         <button
           {{on "click" this.vote}}
+          type="button"
           title={{this.votedStatus}}
           class={{concatClass
             "topic-list-vote-button btn-flat"
