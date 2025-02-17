@@ -5,11 +5,11 @@
 }
 
 .voting-category.list-container {
+  margin: 0 auto;
+
   @if $use_compact_width == "true" {
     max-width: $small-width;
   }
-
-  margin: 0 auto;
 
   .posters,
   .views,
@@ -22,6 +22,7 @@
     .link-bottom-line + .topic-excerpt {
       margin-left: 65px;
       font-size: var(--font-down-2);
+
       .topic-excerpt-more {
         font-weight: bold;
       }
@@ -37,10 +38,8 @@
       display: flex;
     }
 
-    .link-bottom-line {
-      .badge-category__wrapper {
-        display: none;
-      }
+    .link-bottom-line .badge-category__wrapper {
+      display: none;
     }
 
     .title.raw-link.raw-topic-link {
@@ -54,11 +53,13 @@
 
       .discourse-tag {
         margin: 0.35em 0.5em 0 0;
+
         // Hide comma
         &:after {
           display: none;
         }
       }
+
       .list-vote-count {
         display: none;
       }
@@ -90,20 +91,24 @@
       .topic-list-vote-button {
         display: flex;
         justify-content: center;
+
         @if $vote_from_topic_list == "false" {
           cursor: default;
         }
-        &:not(.can-vote) .svg-icon {
-          color: var(--tertiary);
-        }
+
         &.disabled {
           cursor: default;
+        }
+
+        &:not(.can-vote) .svg-icon {
+          color: var(--tertiary);
         }
       }
     }
 
     .topic-statuses {
       margin-left: 65px;
+
       & + .title.raw-link.raw-topic-link {
         margin: 0;
       }

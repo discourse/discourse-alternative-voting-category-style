@@ -10,6 +10,25 @@ import { i18n } from "discourse-i18n";
 const votingCategories = settings.voting_categories.split("|");
 
 export default apiInitializer("1.1", (api) => {
+  const router = api.container.lookup("service:router");
+
+  function isVotingCategory() {
+    const currentCategoryId = router.currentRoute.attributes.category.id;
+    return (
+      currentCategoryId &&
+      votingCategories.some((c) => c === currentCategoryId.toString())
+    );
+  }
+
+  api.registerValueTransformer("topic-list-columns", ({ value: columns }) => {
+    if (isVotingCategory()) {
+      columns.delete("activity");
+      columns.delete("views");
+      columns.delete("posters");
+    }
+    return columns;
+  });
+
   api.registerValueTransformer(
     "topic-list-item-class",
     ({ value, context }) => {
@@ -20,15 +39,10 @@ export default apiInitializer("1.1", (api) => {
     }
   );
 
-  const router = api.container.lookup("service:router");
-
   api.registerValueTransformer("topic-list-item-expand-pinned", ({ value }) => {
-    const currentCategoryId = router.currentRoute.attributes.category.id;
-
     return (
-      (currentCategoryId &&
-        (settings.include_excerpts || settings.vote_from_topic_list) &&
-        votingCategories.some((c) => c === currentCategoryId.toString())) ||
+      ((settings.include_excerpts || settings.vote_from_topic_list) &&
+        isVotingCategory()) ||
       value
     );
   });
