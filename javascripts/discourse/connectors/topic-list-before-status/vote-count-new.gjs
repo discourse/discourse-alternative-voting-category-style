@@ -12,7 +12,7 @@ const votingCategories = settings.voting_categories.split("|");
 
 export default class VoteCount extends Component {
   @service currentUser;
-  @service router;
+  @service discovery;
   @service site;
 
   get topic() {
@@ -20,14 +20,13 @@ export default class VoteCount extends Component {
   }
 
   get showVoteCount() {
-    const path = this.router.currentRoute.params?.category_slug_path_with_id;
+    const id = this.discovery.category?.id;
 
-    if (this.site.desktopView && this.topic.get("can_vote") && path) {
+    if (this.site.desktopView && this.topic.get("can_vote") && id) {
       document
         .querySelector(".list-container")
         .classList.add("voting-category");
 
-      const id = path.split("/").at(-1);
       const isVotingCategory = votingCategories.some(
         (category) => category === id
       );

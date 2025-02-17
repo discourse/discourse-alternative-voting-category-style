@@ -5,14 +5,13 @@ import icon from "discourse/helpers/d-icon";
 const votingCategories = settings.voting_categories.split("|");
 
 export default class CommentIcon extends Component {
-  @service router;
+  @service discovery;
   @service site;
 
   get showCommentIcon() {
-    const path = this.router.currentRoute.params?.category_slug_path_with_id;
+    const id = this.discovery.category?.id;
 
-    if (this.site.desktopView && path) {
-      const id = path.split("/").at(-1);
+    if (this.site.desktopView && id) {
       return votingCategories.some((category) => category === id);
     }
   }
