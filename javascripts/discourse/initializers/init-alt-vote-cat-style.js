@@ -71,7 +71,7 @@ export default apiInitializer("1.1", (api) => {
               (settings.include_excerpts || settings.vote_from_topic_list) &&
               votingCategories.some((c) => c === Number(currentCategoryId))
               ? true
-              : super.expandPinned();
+              : super.expandPinned;
           }
 
           click(e) {
