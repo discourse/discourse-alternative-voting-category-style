@@ -5,8 +5,9 @@ import { i18n } from "discourse-i18n";
 
 const votingCategories = settings.voting_categories.split("|");
 
-export default EmberObject.extend({
-  router: service(),
+export default class VoteCount extends EmberObject {
+  @service router;
+
   @discourseComputed("router.currentRoute", "site.desktopView")
   showVoteCount(currentRoute, isDesktop) {
     if (
@@ -26,11 +27,13 @@ export default EmberObject.extend({
       document.body.classList.remove("voting-category");
       return false;
     }
-  },
+  }
+
   @discourseComputed()
   userVotedClass() {
     return this.topic.user_voted ? "" : "can-vote";
-  },
+  }
+
   @discourseComputed()
   votingDisabled() {
     if (
@@ -40,11 +43,13 @@ export default EmberObject.extend({
     ) {
       return "disabled";
     }
-  },
+  }
+
   @discourseComputed()
   voteCount() {
     return this.topic.vote_count;
-  },
+  }
+
   @discourseComputed()
   votedStatus() {
     if (settings.vote_from_topic_list) {
@@ -62,5 +67,5 @@ export default EmberObject.extend({
         : i18n(themePrefix("user_no_vote"));
     }
     return;
-  },
-});
+  }
+}

@@ -51,6 +51,7 @@ export default apiInitializer("1.1", (api) => {
       (Superclass) =>
         class extends Superclass {
           @service("router") excerptsRouter;
+
           @alias("currentUser.votes_left") votesLeft;
           @alias("topic.user_voted") userVoted;
 

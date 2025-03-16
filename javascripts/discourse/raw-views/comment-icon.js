@@ -4,8 +4,9 @@ import discourseComputed from "discourse/lib/decorators";
 
 const votingCategories = settings.voting_categories.split("|");
 
-export default EmberObject.extend({
-  router: service(),
+export default class CommentIcon extends EmberObject {
+  @service router;
+
   @discourseComputed("router.currentRoute", "site.desktopView")
   showCommentIcon(currentRoute, isDesktop) {
     if (isDesktop && currentRoute.params?.category_slug_path_with_id) {
@@ -15,5 +16,5 @@ export default EmberObject.extend({
         (category) => category === splitCatPath[splitCatPath.length - 1]
       );
     }
-  },
-});
+  }
+}

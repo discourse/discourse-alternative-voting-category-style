@@ -55,7 +55,7 @@ body.voting-category .list-container {
         margin: 0.35em 0.5em 0 0;
 
         // Hide comma
-        &:after {
+        &::after {
           display: none;
         }
       }
