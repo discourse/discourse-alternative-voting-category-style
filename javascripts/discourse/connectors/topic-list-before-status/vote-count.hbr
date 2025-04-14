@@ -1,2 +1,0 @@
-{{!-- has-modern-replacement --}}
-{{~raw "vote-count" topic=context.topic}}
